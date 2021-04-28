@@ -43,7 +43,8 @@ public class manForQuery {
                     //                获取列值
                     Object columnValue = rs.getObject(i + 1);
                     //                获取每个列的列名
-                    String columnName = metaData.getColumnName(i + 1);
+//                    String columnName = metaData.getColumnName(i + 1);
+                    String columnName = metaData.getColumnLabel(i + 1);
                     //               给man对象指定的columnName属性，复制为columnValue，通过反射
                     Field field = Man.class.getDeclaredField(columnName);
                     field.setAccessible(true);

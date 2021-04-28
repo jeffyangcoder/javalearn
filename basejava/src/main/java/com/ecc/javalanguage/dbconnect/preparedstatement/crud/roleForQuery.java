@@ -12,8 +12,12 @@ import java.sql.ResultSetMetaData;
 /**
  * @author yangshiwei
  * @Description 对role表的查询常规操作
+ *              针对于表的字段名与类的属性名不相同的情况，必须声明sql时，使用类的属性名来命名字段的别名。
+ *              使用ResultSetMetaDate时，需要使用getColumnLabel（）来替换getColumnName（）
+ *              说明：如果sql重没有给字段起别名，getColumnLabel（）获取列名
  * @date 2021/4/27-19:59
  */
+
 public class roleForQuery {
     public Role queryForRole(String sql,Object ...args){
         Connection conn = null;
@@ -41,7 +45,9 @@ public class roleForQuery {
                 Role role = new Role();
                 for (int i = 0; i < columnCount; i++) {
                     Object columnValue = rs.getObject(i + 1);
-                    String columnName = metaData.getColumnName(i + 1);
+//                   获取列名 getColumnName(int index);
+//                   获取别名getColumnLabel(int index); 没有别名就获取到列名
+                    String columnName = metaData.getColumnLabel(i + 1);
 
                     Field declaredField = Role.class.getDeclaredField(columnName);
                     declaredField.setAccessible(true);
