@@ -9,9 +9,9 @@ import java.sql.PreparedStatement;
 /**
  * @Description 通用的CURD操作
  */
-public class PreparedStatementCURD {
+public class CURD {
 
-    public void update(String sql, Object... agrs)  {
+    public void update(String sql, Object... agrs) {
         Connection conn = null;
         PreparedStatement ps = null;
         try {
@@ -24,7 +24,7 @@ public class PreparedStatementCURD {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            JDBCUtils.closeResource(conn,ps);
+            JDBCUtils.closeResource(conn, ps);
         }
 
     }

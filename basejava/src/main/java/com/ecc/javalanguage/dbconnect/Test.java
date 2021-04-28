@@ -1,12 +1,8 @@
 package com.ecc.javalanguage.dbconnect;
 
 import com.ecc.javalanguage.dbconnect.preparedstatement.bean.Man;
-import com.ecc.javalanguage.dbconnect.preparedstatement.bean.Role;
-import com.ecc.javalanguage.dbconnect.preparedstatement.crud.QueryTest;
-import com.ecc.javalanguage.dbconnect.preparedstatement.crud.manForQuery;
-import com.ecc.javalanguage.dbconnect.preparedstatement.crud.roleForQuery;
+import com.ecc.javalanguage.dbconnect.preparedstatement.crud.Query;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Test {
@@ -45,7 +41,7 @@ public class Test {
         String loginName = scanner.nextLine();
 
         String sql = "select * from man where userName = ? AND loginName = ?";
-        Man man = new QueryTest().getInstance(Man.class, sql,userName,loginName);
+        Man man = new Query().getInstance(Man.class, sql,userName,loginName);
         if (man == null) {
             System.out.println("登录失败");
         }else

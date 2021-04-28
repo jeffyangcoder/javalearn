@@ -18,12 +18,12 @@ import java.util.Map;
  * @Description 使用PreparedStatement实现针对于不同表的通用的查询操作
  * @date 2021/4/28-18:39
  */
-public class QueryTest {
-    public <T> List<T> getForList(Class<T> clazz, String sql, Object ...args){
+public class Query {
+    public <T> List<T> getForList(Class<T> clazz, String sql, Object... args) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<T> tList= new ArrayList<T>();
+        List<T> tList = new ArrayList<T>();
         try {
             conn = JDBCUtils.getConnection();
 
@@ -63,7 +63,7 @@ public class QueryTest {
         return null;
     }
 
-    public <T> T getInstance(Class <T> clazz,String sql,Object ...args){
+    public <T> T getInstance(Class<T> clazz, String sql, Object... args) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
