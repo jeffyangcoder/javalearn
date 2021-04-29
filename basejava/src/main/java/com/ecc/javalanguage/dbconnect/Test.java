@@ -43,11 +43,8 @@ public class Test {
         String sql = "select * from man where userName = ? AND loginName = ?";
         Man man = new Query().getInstance(Man.class, sql,userName,loginName);
         if (man == null) {
-            System.out.println("登录失败");
-        }else
+        System.out.println("登录失败");
+    }else
             System.out.println("登录成功");
-
-
-
-    }
+}
 }

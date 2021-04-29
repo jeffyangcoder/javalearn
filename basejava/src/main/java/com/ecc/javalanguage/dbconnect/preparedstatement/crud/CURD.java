@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
  */
 public class CURD {
 
-    public void update(String sql, Object... agrs) {
+    public int update(String sql, Object... agrs) {
         Connection conn = null;
         PreparedStatement ps = null;
         try {
@@ -20,12 +20,12 @@ public class CURD {
             for (int i = 0; i < agrs.length; i++) {
                 ps.setObject(i + 1, agrs[i]);
             }
-            ps.execute();
+            return ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             JDBCUtils.closeResource(conn, ps);
         }
-
+        return 0;
     }
 }
