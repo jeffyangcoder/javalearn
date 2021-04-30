@@ -16,7 +16,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="basejava" options="--add-exports jdk.compiler/com.sun.tools.javac.jvm=ALL-UNNAMED" />
+      <module name="basejava" options="" />
     </option>
   </component>
 </project>
