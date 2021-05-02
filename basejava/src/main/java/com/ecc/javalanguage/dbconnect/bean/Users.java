@@ -1,6 +1,4 @@
-package com.ecc.javalanguage.dbconnect.preparedstatement.bean;
-
-import java.net.PasswordAuthentication;
+package com.ecc.javalanguage.dbconnect.bean;
 
 /**
  * @author yangshiwei

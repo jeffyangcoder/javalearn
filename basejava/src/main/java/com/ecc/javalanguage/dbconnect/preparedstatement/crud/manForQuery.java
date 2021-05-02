@@ -1,6 +1,6 @@
 package com.ecc.javalanguage.dbconnect.preparedstatement.crud;
 
-import com.ecc.javalanguage.dbconnect.preparedstatement.bean.Man;
+import com.ecc.javalanguage.dbconnect.bean.Man;
 import com.ecc.javalanguage.dbconnect.util.JDBCUtils;
 
 import java.lang.reflect.Field;

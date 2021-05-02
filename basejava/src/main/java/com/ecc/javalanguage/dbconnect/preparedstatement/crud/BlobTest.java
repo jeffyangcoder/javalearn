@@ -1,10 +1,9 @@
 package com.ecc.javalanguage.dbconnect.preparedstatement.crud;
 
-import com.ecc.javalanguage.dbconnect.preparedstatement.bean.Star;
+import com.ecc.javalanguage.dbconnect.bean.Star;
 import com.ecc.javalanguage.dbconnect.util.JDBCUtils;
 import org.junit.jupiter.api.Test;
 
-import javax.imageio.stream.FileImageOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

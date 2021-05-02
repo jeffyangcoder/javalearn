@@ -1,17 +1,14 @@
 package com.ecc.javalanguage.dbconnect;
 
-import com.ecc.javalanguage.dbconnect.preparedstatement.bean.Users;
+import com.ecc.javalanguage.dbconnect.bean.Users;
 import com.ecc.javalanguage.dbconnect.preparedstatement.crud.CURD;
 import com.ecc.javalanguage.dbconnect.preparedstatement.crud.Query;
 import com.ecc.javalanguage.dbconnect.util.JDBCUtils;
-import com.ecc.javalanguage.introduce.defclass.User;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.net.URL;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.util.Scanner;
 

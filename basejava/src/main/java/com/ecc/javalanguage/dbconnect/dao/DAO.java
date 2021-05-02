@@ -1,28 +1,82 @@
-package com.ecc.javalanguage.dbconnect.preparedstatement.crud;
+package com.ecc.javalanguage.dbconnect.dao;
 
 import com.ecc.javalanguage.dbconnect.util.JDBCUtils;
 
 import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 /**
  * @author yangshiwei
- * @Description 使用PreparedStatement实现针对于不同表的通用的查询操作
- * @date 2021/4/28-18:39
+ * @Description 封装了针对于数据表的通用操作
+ *              DAO database access object
+ * @date 2021/5/2-22:22
  */
-public class Query {
-    public <T> List<T> getForList(Class<T> clazz, String sql, Object... args) {
-        Connection conn = null;
+public abstract class DAO {
+    //    增删改
+    public int update(Connection conn, String sql, Object... agrs) {
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(sql);
+            for (int i = 0; i < agrs.length; i++) {
+                ps.setObject(i + 1, agrs[i]);
+            }
+            return ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JDBCUtils.closeResource(null, ps);
+        }
+        return 0;
+    }
+
+    //    查询返回一条记录
+    public <T> T getInstance(Connection conn, Class<T> clazz, String sql, Object... args) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conn.prepareStatement(sql);
+            for (int i = 0; i < args.length; i++) {
+                ps.setObject(i + 1, args[i]);
+            }
+            rs = ps.executeQuery();
+//        获取结果集的元数据：ResultSetMetaData
+            ResultSetMetaData metaData = rs.getMetaData();
+//        通过获取ResultSetMetaData获取结果集中的列数
+            int columnCount = metaData.getColumnCount();
+            if (rs.next()) {
+//                利用反射找到要返回的类型
+                T t = clazz.getDeclaredConstructor().newInstance();
+                //            处理结果集一行数据中的每一个列
+                for (int i = 0; i < columnCount; i++) {
+                    //                获取列值
+                    Object columnValue = rs.getObject(i + 1);
+                    //                获取每个列的列名
+//                    String columnName = metaData.getColumnName(i + 1);
+                    String columnName = metaData.getColumnLabel(i + 1);
+                    //               给T对象指定的columnName属性，复制为columnValue，通过反射
+                    Field field = clazz.getDeclaredField(columnName);
+                    field.setAccessible(true);
+                    field.set(t, columnValue);
+                }
+                return t;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JDBCUtils.closeResource(null, ps);
+        }
+        return null;
+    }
+
+//    多条记录构成的集合
+    public <T> List<T> getForList(Connection conn, Class<T> clazz, String sql, Object... args) {
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<T> tList = new ArrayList<T>();
         try {
-            conn = JDBCUtils.getConnection();
 
             ps = conn.prepareStatement(sql);
             for (int i = 0; i < args.length; i++) {
@@ -55,50 +109,30 @@ public class Query {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            JDBCUtils.closeResource(conn, ps);
+            JDBCUtils.closeResource(null, ps,rs);
         }
         return null;
     }
 
-    public <T> T getInstance(Class<T> clazz, String sql, Object... args) {
-        Connection conn = null;
+//     用于查询特殊值的通用方法
+    public <E>E getValue(Connection conn,String sql,Object ...args){
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            conn = JDBCUtils.getConnection();
-
             ps = conn.prepareStatement(sql);
             for (int i = 0; i < args.length; i++) {
-                ps.setObject(i + 1, args[i]);
+                ps.setObject(i + 1,args[i]);
             }
             rs = ps.executeQuery();
-//        获取结果集的元数据：ResultSetMetaData
-            ResultSetMetaData metaData = rs.getMetaData();
-//        通过获取ResultSetMetaData获取结果集中的列数
-            int columnCount = metaData.getColumnCount();
-            if (rs.next()) {
-//                利用反射找到要返回的类型
-                T t = clazz.getDeclaredConstructor().newInstance();
-                //            处理结果集一行数据中的每一个列
-                for (int i = 0; i < columnCount; i++) {
-                    //                获取列值
-                    Object columnValue = rs.getObject(i + 1);
-                    //                获取每个列的列名
-//                    String columnName = metaData.getColumnName(i + 1);
-                    String columnName = metaData.getColumnLabel(i + 1);
-                    //               给T对象指定的columnName属性，复制为columnValue，通过反射
-                    Field field = clazz.getDeclaredField(columnName);
-                    field.setAccessible(true);
-                    field.set(t, columnValue);
-                }
-                return t;
+
+            if (rs.next()){
+                return (E)rs.getObject(1);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         } finally {
-            JDBCUtils.closeResource(conn, ps);
+            JDBCUtils.closeResource(null,ps,rs);
         }
         return null;
-
     }
 }

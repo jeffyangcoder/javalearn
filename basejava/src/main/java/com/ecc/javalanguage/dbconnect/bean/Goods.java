@@ -1,4 +1,4 @@
-package com.ecc.javalanguage.dbconnect.preparedstatement.bean;
+package com.ecc.javalanguage.dbconnect.bean;
 
 /**
  * @author yangshiwei

@@ -1,7 +1,7 @@
-package com.ecc.javalanguage.dbconnect.preparedstatement.bean;
+package com.ecc.javalanguage.dbconnect.bean;
 
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @author yangshiwei

@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
  * @author yangshiwei
  * @Description 使用PreparedStatement实现批量数据的操作
  *              update,delete本身就具有批量操作的效果
+ *
  * @date 2021/4/30-13:22
  */
 public class InsertTest {
@@ -49,9 +50,11 @@ public class InsertTest {
             ps = conn.prepareStatement(sql);
             for (int i = 0; i < 2000; i++) {
                 ps.setObject(1,"name_" + i);
+//                拼串
                 ps.addBatch();
                 if (i % 200 == 0) {
                     ps.execute();
+//                    把执行完的串清除
                     ps.clearBatch();
                 }
 

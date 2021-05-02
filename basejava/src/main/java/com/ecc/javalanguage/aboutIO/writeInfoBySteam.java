@@ -1,7 +1,6 @@
-package com.ecc.aboutIO;
+package com.ecc.javalanguage.aboutIO;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 
 /**
  * @author yangshiwei
