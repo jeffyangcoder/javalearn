@@ -2,6 +2,8 @@ package com.ecc.javalanguage.aboutClass.compara;
 
 import com.ecc.javalanguage.aboutClass.Student;
 
+import java.sql.Connection;
+import java.util.Collections;
 import java.util.List;
 
 public class SortImpl implements ISort {
@@ -16,9 +18,7 @@ public class SortImpl implements ISort {
                 }
             }
             if (maxIndex!=i){
-                Student student = stuList.get(i);
-                stuList.set(i,stuList.get(maxIndex));
-                stuList.set(maxIndex,student);
+                Collections.swap(stuList, i,maxIndex);
             }
         }
     }

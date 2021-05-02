@@ -27,6 +27,13 @@ public class Star {
     Date birth;
     Blob photo;
 
+    public Star(int id, String name, String email, Date birth) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.birth = birth;
+    }
+
     public int getId() {
         return id;
     }

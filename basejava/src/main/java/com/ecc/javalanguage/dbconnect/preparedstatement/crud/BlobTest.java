@@ -4,12 +4,12 @@ import com.ecc.javalanguage.dbconnect.preparedstatement.bean.Star;
 import com.ecc.javalanguage.dbconnect.util.JDBCUtils;
 import org.junit.jupiter.api.Test;
 
+import javax.imageio.stream.FileImageOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.sql.*;
 
 /**
  * @author yangshiwei
@@ -19,7 +19,7 @@ import java.sql.ResultSet;
 public class BlobTest {
     // 向star表重插入Blob类型的字段
     @Test
-    public void testInsert()throws Exception{
+    public void testInsert() throws Exception {
         Connection conn = JDBCUtils.getConnection();
         String sql = "insert into star (name,email,birth,photo)values(?,?,?,?)";
 
@@ -36,7 +36,8 @@ public class BlobTest {
         JDBCUtils.closeResource(conn, ps);
     }
 
-    public void testQuery()throws Exception{
+    @Test
+    public void testQuery() throws Exception {
         Connection conn = JDBCUtils.getConnection();
         String sql = " select id,name,email,birth,photo from star where id = ?";
 
@@ -44,7 +45,7 @@ public class BlobTest {
         ps.setInt(1, 1);
 
         ResultSet rs = ps.executeQuery();
-        if(rs.next()){
+        if (rs.next()) {
 //            int id = rs.getInt(1);
 //            String name = rs.getString(2);
 //            String email = rs.getString(3);
@@ -54,8 +55,19 @@ public class BlobTest {
             String email = rs.getString("email");
             Date birth = rs.getDate("birth");
 
-            Star star = new Star(id, name, email, birth, );
+            Star star = new Star(id, name, email, birth);
 
+            Blob photo = rs.getBlob("photo");
+            InputStream is = photo.getBinaryStream();
+            FileOutputStream fos = new FileOutputStream("src/main/resources/img/猫弟.jpg");
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = is.read(buffer)) != -1) {
+                fos.write(buffer, 0, len);
+            }
+            JDBCUtils.closeResource(conn, ps, rs);
+            is.close();
+            fos.close();
         }
 
     }

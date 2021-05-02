@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
 import java.sql.Blob;
+import java.sql.Connection;
 import java.util.Scanner;
 
 /**
@@ -129,12 +130,13 @@ public class Homework {
         String email = scanner.next();
         System.out.println("photo: ");
         String photo = scanner.next();
+
         FileInputStream photoStream = null;
         try {
             photoStream = new FileInputStream(new File(photo));
             String sql = "insert into star (name,birth,email,photo) values(?,?,?,?)";
 
-            int update = new CURD().update(sql, name,birth, email, photoStream);
+            int update = new CURD().update(sql, name, birth, email, photoStream);
 
             if (update > 0) {
                 System.out.println("success");
@@ -143,6 +145,29 @@ public class Homework {
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("name: ");
+        String name = scanner.next();
+        System.out.println("birth: ");
+        String birth = scanner.next();
+        System.out.println("email: ");
+        String email = scanner.next();
+        System.out.println("photo: ");
+        String photo = scanner.next();
+        URL url = new URL(photo);
+        FileInputStream fileInputStream = new FileInputStream(new File(photo));
+        Connection conn = JDBCUtils.getConnection();
+
+        String sql = "insert into star (name,birth,email,photo) values(?,?,?,?)";
+        int update = new CURD().update(sql, name, birth, email, url);
+        if (update > 0) {
+            System.out.println("success");
+        } else {
+            System.out.println("fail");
         }
 
     }
