@@ -1,14 +1,16 @@
 package com.ecc.javalanguage.dbconnect.util;
 
+import com.alibaba.druid.pool.DruidDataSourceFactory;
+
+import javax.sql.DataSource;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 
 /**
- * @Description 操作数据库的工具类
  * @author yangshiwei
- *
- *
+ * @Description 操作数据库的工具类
  */
 public class JDBCUtils {
     /**
@@ -16,7 +18,7 @@ public class JDBCUtils {
      * @throws Exception
      * @Description 获取数据库连接
      */
-    public static Connection getConnection() throws Exception {
+    public static Connection getConnection01() throws Exception {
         //        1.读取配置文件中的四个基本信息,配置文件在资源文件夹里
 
         InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("jdbc.properties");
@@ -42,7 +44,7 @@ public class JDBCUtils {
      * @param ps
      * @Description 关闭数据库连接和Statement操作
      */
-    public static void closeResource(Connection conn, Statement ps,ResultSet rs) {
+    public static void closeResource(Connection conn, Statement ps, ResultSet rs) {
         try {
             if (ps != null) ps.close();
             if (conn != null) conn.close();
@@ -51,6 +53,7 @@ public class JDBCUtils {
             throwables.printStackTrace();
         }
     }
+
     public static void closeResource(Connection conn, Statement ps) {
         try {
             if (ps != null) ps.close();
@@ -58,6 +61,39 @@ public class JDBCUtils {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    //    使用Druid数据库连接池技术
+    private static DataSource source;
+
+    static {
+        Properties pros = null;
+        try {
+            pros = new Properties();
+
+            InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("druid.properties");
+
+
+            pros.load(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            source = DruidDataSourceFactory.createDataSource(pros);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Connection getConnection() {
+
+        try {
+            return source.getConnection();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
     }
 }
 
