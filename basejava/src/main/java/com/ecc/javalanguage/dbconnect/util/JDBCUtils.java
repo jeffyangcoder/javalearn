@@ -1,6 +1,7 @@
 package com.ecc.javalanguage.dbconnect.util;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
+import org.apache.commons.dbutils.DbUtils;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -44,7 +45,7 @@ public class JDBCUtils {
      * @param ps
      * @Description 关闭数据库连接和Statement操作
      */
-    public static void closeResource(Connection conn, Statement ps, ResultSet rs) {
+    public static void closeResource1(Connection conn, Statement ps, ResultSet rs) {
         try {
             if (ps != null) ps.close();
             if (conn != null) conn.close();
@@ -54,7 +55,7 @@ public class JDBCUtils {
         }
     }
 
-    public static void closeResource(Connection conn, Statement ps) {
+    public static void closeResource1(Connection conn, Statement ps) {
         try {
             if (ps != null) ps.close();
             if (conn != null) conn.close();
@@ -94,6 +95,33 @@ public class JDBCUtils {
             throwables.printStackTrace();
         }
         return null;
+    }
+
+    /*
+     * @Description 使用dbutils.jar中提供的Dbutils工具类，实现资源关闭
+     * @author yangshiwei
+     * @date 2021/5/5 13:49
+ * @param conn
+ * @param ps
+     */
+    public static void closeResource(Connection conn, Statement ps,ResultSet rs) {
+        try {
+            DbUtils.close(conn);
+            DbUtils.close(ps);
+            DbUtils.close(rs);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public static void closeResource(Connection conn, Statement ps) {
+//        try {
+//            DbUtils.close(conn);
+//            DbUtils.close(ps);
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+        DbUtils.closeQuietly(conn);
+        DbUtils.closeQuietly(ps);
     }
 }
 
