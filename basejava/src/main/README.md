@@ -95,5 +95,67 @@ protected 包可见、继承可见
         
 匿名内部类
 
+# 为什么去掉返回数组
+
+1. 因为传入的参数是地址，后续的操作都是围绕这个地址中的内容来展开。
+
+2. 浪费了空间
+3. 有返回数组的函数，脱离了实际使用需求。
+
+Lunce
+
+ElasticSearch
+
+搜索
+
+
+
+# IO
+
+* 阻塞型IO和非阻塞型NIO
+
+* 向管道里面写数据，用输出流write，反之用read
+* ==当流到达末尾时，返回-1==
+* ![image-20210430142931376](C:\Users\yangshiwei\AppData\Roaming\Typora\typora-user-images\image-20210430142931376.png)
+* ![image-20210430142951087](C:\Users\yangshiwei\AppData\Roaming\Typora\typora-user-images\image-20210430142951087.png)
+* ![image-20210430143006765](C:\Users\yangshiwei\AppData\Roaming\Typora\typora-user-images\image-20210430143006765.png)
+* ![image-20210430143021915](C:\Users\yangshiwei\AppData\Roaming\Typora\typora-user-images\image-20210430143021915.png)
+* ![image-20210430143042094](C:\Users\yangshiwei\AppData\Roaming\Typora\typora-user-images\image-20210430143042094.png)
+* ![查看源图像](https://pic4.zhimg.com/v2-6bf8bc5b398d688cf8887f79e6c0bd27_r.jpg)
+*
+
+
+
+# 实例操作
+
+* 按照字节流的方式读取文件内容
+
+1. 根据文件路径，构建文件对象
+2. 创建输入流来读取文件内容
+3. 创建字节数组来存放读取内容
+4. 关闭文件的输入流
+
+
+
+## 语言基础
+
+## 项目开发实践
+
+### 分布式平台Spring boost
+
+### Java web :vue,React
+
+###  Tomcat容器
+
+后端：异常，控制，并发，异步，集群
+
+### 多学习第三方框架
+
+
+运行异常，api异常，业务异常
+使用的大致步骤：
+    1：定义异常，可以不定义，直接使用JDK中的异常类Exception,也可以定义自己的异常类（需要对输出的异常信息进行定制）
+    2：将异常使用到具体的类中，相当于我们在向别人提供开发工具的到时候，设计类时候要考虑的异常情况提醒使用我们开发的API人员注意，有异常，需要捕获，本步关键是要抛出异常
+    3：使用API
 
 

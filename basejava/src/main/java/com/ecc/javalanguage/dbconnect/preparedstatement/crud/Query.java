@@ -99,6 +99,5 @@ public class Query {
             JDBCUtils.closeResource(conn, ps);
         }
         return null;
-
     }
 }
