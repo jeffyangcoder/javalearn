@@ -5,5 +5,5 @@ import com.ecc.javalanguage.aboutClass.Student;
 import java.util.List;
 
 public interface ISort {
-    public void sortInt(List<Student> studentList);
+    void sortInt(List<Student> studentList);
 }

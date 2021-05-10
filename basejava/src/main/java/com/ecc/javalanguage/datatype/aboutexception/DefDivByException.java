@@ -2,7 +2,7 @@ package com.ecc.javalanguage.datatype.aboutexception;
 
 /**
  * @author yangshiwei
- * @Description 考虑两数相除，除数为0的情况
+ * @Description 考虑两数相除，除数为0的情况,中的异常处理
  * @date 2021/5/7-14:25
  */
 public class DefDivByException extends Exception{
