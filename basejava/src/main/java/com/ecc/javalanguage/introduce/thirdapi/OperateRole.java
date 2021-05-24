@@ -12,15 +12,15 @@ import static com.ecc.javalanguage.introduce.thirdapi.MySQLDBConnect.conn;
 public class OperateRole {
     public void insert(Role role) {
         Connection conn = MySQLDBConnect.getConn();
-        PreparedStatement pstmt = null;
+        PreparedStatement stmts = null;
         String sql = "INSERT INTO role(id,roleName,dataType,roleDes)" +
                 "VALUES(null,?,?,?)";
         try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1,role.getRoleName());
-            pstmt.setInt(2, role.getDataType());
-            pstmt.setString(3, role.getRoleDes());
-            pstmt.executeUpdate();
+            stmts = conn.prepareStatement(sql);
+            stmts.setString(1,role.getRoleName());
+            stmts.setInt(2, role.getDataType());
+            stmts.setString(3, role.getRoleDes());
+            stmts.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
