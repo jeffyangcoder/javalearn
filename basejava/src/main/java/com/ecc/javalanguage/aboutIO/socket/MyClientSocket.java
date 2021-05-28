@@ -11,7 +11,7 @@ import java.net.Socket;
  *              2:发送一句话
  * @date 2021/5/14-15:01
  */
-public class MyClientSocket {
+public class MyClientSocket implements Serializable{
     public void sendMsg(String address, int port) throws IOException {
         Socket socket = null;
         OutputStream outputStream = null;

@@ -44,7 +44,5 @@ public class ByRunnable implements Runnable {
             }
         });
         executorService.shutdown();
-
     }
-
 }
