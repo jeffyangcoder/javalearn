@@ -10,7 +10,6 @@ import java.lang.reflect.Method;
  */
 public class AnnotationInterpreter {
 //    public void interpreter(Class<T> clazz)
-
     public void interpreter() {
         Class<MyController> myControllerClass = MyController.class;
 //        1.判断MyController是否有@Contorller存在

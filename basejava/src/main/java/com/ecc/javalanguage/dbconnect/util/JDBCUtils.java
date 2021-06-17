@@ -63,8 +63,13 @@ public class JDBCUtils {
             throwables.printStackTrace();
         }
     }
-
-    //    使用Druid数据库连接池技术
+/*
+ * @Description 使用Druid数据库连接池技术
+ * @author yangshiwei
+ * @date 2021/6/17 11:26
+ * @param null
+ * @return null
+ */
     private static DataSource source;
 
     static {
