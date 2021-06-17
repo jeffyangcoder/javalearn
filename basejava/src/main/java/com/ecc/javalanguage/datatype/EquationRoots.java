@@ -6,9 +6,7 @@ public class EquationRoots {
     private int b;
     private int c;
 
-    static {
-        System.out.println("Equation is loading!");
-    }
+
     //构造方法
     public EquationRoots(int a, int b, int c) {
         this.a = a;
@@ -16,8 +14,12 @@ public class EquationRoots {
         this.c = c;
     }
 
+    public EquationRoots() {
+
+    }
+
     //求根公式成员方法
-    public int[] getRoot() {
+    public int[] getRoots() {
         int[] results = {0, 0};
         int flag = delta();
         if (flag < 0) {

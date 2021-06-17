@@ -39,7 +39,7 @@ public class Startup {
 
 
         EquationRoots equationRoots = new EquationRoots(1, 2, 1);
-        int[] result = equationRoots.getRoot();
+        int[] result = equationRoots.getRoots();
         //double[] result = EquationRoots2.getRoot(9,8,1);
         for (int item : result) {
             System.out.println("root is " + item);

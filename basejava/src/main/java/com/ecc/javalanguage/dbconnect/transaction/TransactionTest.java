@@ -80,7 +80,7 @@ public class TransactionTest {
             String sql1 = "update user_table set balance = balance - 100 where user = ?";
             update(conn, sql1, "AA");
 
-//        模拟网络异常
+//             模拟网络异常
             System.out.println(10 / 0);
 
             String sql2 = "update user_table set balance = balance + 100 where user = ?";
